@@ -7,7 +7,7 @@
 - Should be available as docker compose setup
 - Should be usable by an non-tech person
 
-Frontend 
+### Frontend 
 - Devices: TV + Mobile
 - JS Framework like Vue, React, Svelte with PWA possibilities
 
@@ -18,24 +18,28 @@ Frontend
   - TV Only: QR Code for Wifi
   - Accesibility
 
-BFF
+### BFF
 - Device: Laptop + Tablet
 - CMS functionality
 - Map as central information 
 
-BE
+### BE
 - Offline-compatible webserver
 
-OSM-Server
+### OSM-Server
 - Germany only (e.g. https://download.geofabrik.de/europe.html aprox 4.1GB)
 - Better per federal state
- - e.g. Saarland: https://download.geofabrik.de/europe/germany.html (aprox 48.5 MB)	
+ - e.g. Saarland: https://download.geofabrik.de/europe/germany.html (aprox 48.5 MB)
+
+**Solution**
+https://github.com/Overv/openstreetmap-tile-server can & will be used for our purpose.
+https://hub.docker.com/r/overv/openstreetmap-tile-server
 
 ## Hardware:
 
-Raspberry Pi 
-TV / Monitor (should be waterproof)
-Accesspoint / Network 
-- should be able to handle 200 users
-- should redirect all requests to the own webserver
-Powerstation + Solarpanel
+- Raspberry Pi 
+- TV / Monitor (should be waterproof)
+- Accesspoint / Network 
+  - should be able to handle 200 users
+  - should redirect all requests to the own webserver
+- Powerstation + Solarpanel
