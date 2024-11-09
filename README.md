@@ -4,7 +4,8 @@
 
 ## Parts:
 
-Should be available as docker compose setup
+- Should be available as docker compose setup
+- Should be usable by an non-tech person
 
 Frontend 
 - Devices: TV + Mobile
@@ -26,8 +27,9 @@ BE
 - Offline-compatible webserver
 
 OSM-Server
-- Germany only
+- Germany only (e.g. https://download.geofabrik.de/europe.html aprox 4.1GB)
 - Better per federal state
+ - e.g. Saarland: https://download.geofabrik.de/europe/germany.html (aprox 48.5 MB)	
 
 ## Hardware:
 
