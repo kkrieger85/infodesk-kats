@@ -1,0 +1,62 @@
+services:
+  osm-tile-server:
+    image: overv/openstreetmap-tile-server
+    container_name: osm-tile-server
+    environment:
+      - THREADS=4
+      - UPDATES=disabled
+    volumes:
+      - ./osm-map-data/saarland-latest.osm.pbf:/data/region.osm.pbf
+      - osm-db-data:/data/database
+      - osm-tiles:/data/tiles/
+    ports:
+      - "8080:80"
+    #command: import // Use for first initialisation
+    command: run
+
+  frontend:
+    image: nginx:alpine
+    container_name: frontend
+    ports:
+      - "3000:80"
+    volumes:
+      - ./frontend/dist:/usr/share/nginx/html  # Point to your Vue.js app build directory
+    depends_on:
+      - backend
+    networks:
+      - webnet
+
+  backend:
+    image: directus/directus:latest
+    container_name: backend
+    environment:
+      DIRECTUS_SECRET: mysecretkey
+      DIRECTUS_DATABASE_URL: postgres://directus_user:directus_password@db:5432/directus
+    ports:
+      - "8055:8055"
+    depends_on:
+      - db
+      - osm-tile-server
+    networks:
+      - webnet
+
+  db:
+    image: postgres:13-alpine
+    container_name: db
+    environment:
+      POSTGRES_DB: directus
+      POSTGRES_USER: directus_user
+      POSTGRES_PASSWORD: directus_password
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    networks:
+      - webnet
+
+volumes:
+  osm-db-data:
+  osm-tiles:
+
+
+networks:
+  webnet:
+    driver: bridge
