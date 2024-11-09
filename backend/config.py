@@ -1,13 +1,10 @@
 from pydantic_settings import BaseSettings
-
+import os
 
 class Settings(BaseSettings):
-    postgres_user: str
-    postgres_password: str
-    postgres_db: str
+    database_url: str
 
     class Config:
-        env_file = "../.env"
-
+        env_prefix = ""
 
 settings = Settings()

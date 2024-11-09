@@ -1,17 +1,17 @@
 services:
   osm-tile-server:
-    image: overv/openstreetmap-tile-server
+    image: overv/openstreetmap-tile-server:latest
     container_name: osm-tile-server
     environment:
       - THREADS=4
       - UPDATES=disabled
     volumes:
-      - ./osm-map-data/saarland-latest.osm.pbf:/data/region.osm.pbf
-      - osm-db-data:/data/database
-      - osm-tiles:/data/tiles/
+      - ./osm-map-data/saarland-latest.osm.pbf:/data.osm.pbf
+      - osm-db-data:/var/lib/postgresql/12/main
+      - osm-tiles:/var/lib/mod_tile
     ports:
-      - "8080:80"
-    #command: import // Use for first initialisation
+      - "8080:8080"
+    #command: import
     command: run
 
   frontend:
@@ -29,12 +29,11 @@ services:
   backend:
 #    image: directus/directus:latest
     build:
-      context: .
-      dockerfile: backend/Dockerfile
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: backend
     environment:
-      DIRECTUS_SECRET: mysecretkey
-      DIRECTUS_DATABASE_URL: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
     ports:
       - "80:80"
     depends_on:
