@@ -13,7 +13,8 @@
 
 - View:
   - Maps with POI
-    - https://leafletjs.com/ to use. Add Point, Circles & Polygons
+    - https://leafletjs.com/ to use.
+    - https://leaflet.github.io/Leaflet.draw/docs/leaflet-draw-latest.html  Add Point, Circles & Polygons
   - Legenda for Map
   - Newsfeed (order by prio), maybe autoscroll
   - TV Only: QR Code for Wifi
