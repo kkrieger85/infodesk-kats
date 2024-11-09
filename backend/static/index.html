@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map with Editable Locations</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+  <style>
+    #map { height: 90vh; }
+    #exportBtn { margin: 10px; padding: 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+<div id="map"></div>
+<button id="exportBtn">Save locations</button>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+<script>
+  var map = L.map('map').setView([49.2765, 7.0455], 15);
+  L.tileLayer('http://0.0.0.0:8080/tile/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
+
+  var drawnItems = new L.FeatureGroup();
+  map.addLayer(drawnItems);
+
+  var drawControl = new L.Control.Draw({
+    edit: { featureGroup: drawnItems },
+    draw: { polygon: true, polyline: true, rectangle: true, circle: true, marker: true }
+  });
+  map.addControl(drawControl);
+
+  map.on('draw:created', function (event) {
+    var layer = event.layer;
+    drawnItems.addLayer(layer);
+    saveOrUpdateLayer(layer);
+  });
+
+  function saveOrUpdateLayer(layer) {
+    var layerData;
+    if (layer instanceof L.Marker) {
+      layerData = { type: "Marker", data: JSON.stringify({ coordinates: layer.getLatLng() }) };
+    } else if (layer instanceof L.Circle) {
+      layerData = { type: "Circle", data: JSON.stringify({ center: layer.getLatLng(), radius: layer.getRadius() }) };
+    } else if (layer instanceof L.Polygon || layer instanceof L.Polyline) {
+      layerData = { type: layer instanceof L.Polygon ? "Polygon" : "Polyline", data: JSON.stringify({ coordinates: layer.getLatLngs() }) };
+    }
+
+    if (layer._id) {
+      fetch(`http://localhost:80/locations/${layer._id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(layerData)
+      })
+      .then(response => response.json())
+      .then(result => console.log("Updated:", result))
+      .catch(error => console.error("Error:", error));
+    } else {
+      fetch('http://localhost:80/locations/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(layerData)
+      })
+      .then(response => response.json())
+      .then(result => {
+        layer._id = result.id;
+        console.log("Saved:", result);
+      })
+      .catch(error => console.error("Error:", error));
+    }
+  }
+
+  function deleteLayer(layer) {
+    fetch(`http://localhost:80/locations/${layer._id}`, {
+      method: 'DELETE'
+    })
+    .then(() => console.log("Deleted:", layer._id))
+    .catch(error => console.error("Error:", error));
+  }
+
+  function loadLocations() {
+    fetch('/locations/')
+      .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.json();
+      })
+      .then(locations => {
+        locations.forEach(location => {
+          let data;
+          try {
+            data = JSON.parse(location.data);
+          } catch (error) {
+            console.error(`Parse error for location ID ${location.id}:`, error);
+            return;
+          }
+
+          let layer;
+          if (location.type === "Marker" && data.coordinates) {
+            layer = L.marker([data.coordinates.lat, data.coordinates.lng]);
+          } else if (location.type === "Circle" && data.center && data.radius) {
+            layer = L.circle([data.center.lat, data.center.lng], { radius: data.radius, color: 'blue', fillColor: '#30f', fillOpacity: 0.3 });
+          } else if (location.type === "Polygon" && Array.isArray(data.coordinates)) {
+            const latlngs = data.coordinates[0].map(coord => [coord.lat, coord.lng]);
+            layer = L.polygon(latlngs, { color: 'green' });
+          }
+
+          if (layer) {
+            layer._id = location.id;
+            layer.addTo(drawnItems).bindPopup("Location ID: " + location.id);
+          }
+        });
+      })
+      .catch(error => console.error('Error loading locations:', error));
+  }
+
+  map.on('draw:edited', function (event) {
+    event.layers.eachLayer(layer => saveOrUpdateLayer(layer));
+  });
+
+  map.on('draw:deleted', function (event) {
+    event.layers.eachLayer(layer => deleteLayer(layer));
+  });
+
+  document.addEventListener("DOMContentLoaded", loadLocations);
+</script>
+
+</body>
+</html>
