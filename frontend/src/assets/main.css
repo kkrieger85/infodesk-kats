@@ -1,0 +1,53 @@
+@import './base.css';
+
+#app {
+  max-width: 100%;
+  margin: 1rem auto;
+  padding: 2rem;
+  font-weight: normal;
+}
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+  padding: 3px;
+}
+
+main {}
+
+.map {
+  height: 400px;
+}
+@media (hover: hover) {
+  a:hover {
+    background-color: hsla(160, 100%, 37%, 0.2);
+  }
+}
+
+@media (min-width: 1024px) {
+  body {
+    display: flex;
+    place-items: center;
+  }
+
+  main {
+    grid-column: 1;
+    height: 700px;
+
+  }
+
+  aside {
+    grid-column: 2;
+    height: 800px;
+    overflow-y: scroll;
+  }
+
+  #app {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: auto;
+    padding: 0 2rem;
+  }
+}
