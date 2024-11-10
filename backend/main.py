@@ -52,5 +52,31 @@ async def read_index():
 @app.get("/locations/", response_model=List[LocationData])
 def get_locations(db: Session = Depends(get_db)) -> list[LocationData]:
     locations = db.query(Location).all()
-    print(locations)
     return locations
+
+
+@app.put("/locations/{location_id}", response_model=LocationData)
+def update_location(location_id: int, location_data: AddLocationData, db: Session = Depends(get_db)):
+    location = db.query(Location).filter(Location.id == location_id).first()
+    if location is None:
+        raise HTTPException(status_code=404, detail="Location not found")
+
+    location.type = location_data.type or location.type
+    location.data = location_data.data or location.data
+
+    db.commit()
+    db.refresh(location)
+
+    return location
+
+
+@app.delete("/locations/{location_id}", response_model=LocationData)
+def delete_location(location_id: int, db: Session = Depends(get_db)):
+    location = db.query(Location).filter(Location.id == location_id).first()
+    if location is None:
+        raise HTTPException(status_code=404, detail="Location not found")
+
+    db.delete(location)
+    db.commit()
+
+    return None
