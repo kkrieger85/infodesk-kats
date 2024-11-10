@@ -1,5 +1,25 @@
 # infodesk-kats
 
+## instruction
+
+### first setup
+clone this project: https://github.com/kkrieger85/infodesk-kats.git
+
+(if you'd like to use other data than saarland:)
+find and download your data from https://download.geofabrik.de/europe/germany.html
+modify docker-compose.yaml to use your selected *.osm.bpf file
+
+modify docker-compose.yaml to use "import" command for osm-tiles-server for your initial setup
+
+run 'docker compose up --build' and wait for complete OSM Import
+
+modify docker-compose.yaml to use "run" command for osm-tiles-server
+
+### usage
+
+run 'docker compose up -d'
+
+open 'http://localhost:8080/' in your browser
 
 
 ## Parts:
