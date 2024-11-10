@@ -10,6 +10,7 @@ import SupportIcon from './icons/IconSupport.vue'
 
 
 <template>
+  <h2>Newsfeed</h2>
   <NewsItem>
     <template #icon>
       <DocumentationIcon />

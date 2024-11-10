@@ -8,13 +8,23 @@ import Legende from './components/Legende.vue'
 
 <template>
   <main>
-    <OSM />
-    <Legende></Legende>
+    <div class="map">
+      <OSM />
+    </div>
+    <div class="legende">
+      <Legende></Legende>
+    </div>
 
   </main>
   <aside>
-    <Organization></Organization>
-    <Newsfeed />
+    <div class="org">
+      <Organization></Organization>
+
+    </div>
+    <div class="newsfeed">
+      <Newsfeed />
+
+    </div>
 
   </aside>
 </template>
@@ -29,6 +39,11 @@ header {
   margin: 0 auto 2rem;
 }
 
+@media (max-width: 800px) {
+  .org {
+    display: none;
+  }
+}
 @media (min-width: 1024px) {
   header {
     display: flex;
