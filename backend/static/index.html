@@ -14,13 +14,12 @@
 <body>
 
 <div id="map"></div>
-<button id="exportBtn">Save locations</button>
 
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
 <script>
   var map = L.map('map').setView([49.2765, 7.0455], 15);
-  L.tileLayer('localhost:8080/tile/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
+  L.tileLayer(' http://localhost:8080/tile/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
 
   var drawnItems = new L.FeatureGroup();
   map.addLayer(drawnItems);
@@ -46,6 +45,11 @@
     } else if (layer instanceof L.Polygon || layer instanceof L.Polyline) {
       layerData = { type: layer instanceof L.Polygon ? "Polygon" : "Polyline", data: JSON.stringify({ coordinates: layer.getLatLngs() }) };
     }
+
+<!--    var popup_message = prompt("Weitere Informationen?", "");-->
+<!--    if (popup_message.length) {-->
+<!--      layer.bindPopup(popup_message);-->
+<!--    }-->
 
     if (layer._id) {
       fetch(`http://localhost:80/locations/${layer._id}`, {
