@@ -6,11 +6,11 @@ services:
       - THREADS=4
       - UPDATES=disabled
     volumes:
-      - ./osm-map-data/saarland-latest.osm.pbf:/data.osm.pbf
-      - osm-db-data:/var/lib/postgresql/12/main
-      - osm-tiles:/var/lib/mod_tile
+      - ./osm-map-data/saarland-latest.osm.pbf:/data/region.osm.pbf
+      - osm-db-data:/data/database
+      - osm-tiles:/data/tiles/
     ports:
-      - "8080:8080"
+      - "8080:80"
     #command: import
     command: run
 

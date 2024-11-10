@@ -20,7 +20,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
 <script>
   var map = L.map('map').setView([49.2765, 7.0455], 15);
-  L.tileLayer('http://0.0.0.0:8080/tile/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
+  L.tileLayer('localhost:8080/tile/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
 
   var drawnItems = new L.FeatureGroup();
   map.addLayer(drawnItems);
