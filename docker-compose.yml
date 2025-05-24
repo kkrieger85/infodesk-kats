@@ -5,6 +5,7 @@ services:
     environment:
       - THREADS=4
       - UPDATES=disabled
+    user: "${UID}:${GID}"
     volumes:
       - ./osm-map-data/saarland-latest.osm.pbf:/data/region.osm.pbf
       - osm-db-data:/data/database
@@ -19,6 +20,7 @@ services:
     container_name: frontend
     ports:
       - "3000:80"
+    user: "${UID}:${GID}"
     volumes:
       - ./frontend/dist:/usr/share/nginx/html  # Point to your Vue.js app build directory
     depends_on:
@@ -50,13 +52,15 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - ./postgres-data:/var/lib/postgresql/data
+      - postgres-data:/var/lib/postgresql/data
     networks:
       - webnet
 
 volumes:
   osm-db-data:
   osm-tiles:
+  postgres-data:
+
 
 
 networks:
