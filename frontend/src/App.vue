@@ -3,15 +3,22 @@ import Newsfeed from './components/Newsfeed.vue'
 import OSM from './components/OSM.vue'
 import Organization from './components/Organization.vue'
 import Legende from './components/Legende.vue'
+
+import { ref } from 'vue'
+let customMarkers = ref([])
+
+function updateCustomMarkers(markers) {
+  customMarkers.value = markers
+}
 </script>
 
 <template>
   <main>
     <div class="map">
-      <OSM />
+      <OSM :customMarkers="customMarkers" @customMarkers="updateCustomMarkers" />
     </div>
     <div class="legende">
-      <Legende></Legende>
+      <Legende :customMarkers="customMarkers" />
     </div>
 
   </main>
@@ -26,7 +33,7 @@ import Legende from './components/Legende.vue'
     </div>
 
   </aside>
-  
+
 </template>
 
 <style scoped>
@@ -44,6 +51,7 @@ header {
     display: none;
   }
 }
+
 @media (min-width: 1024px) {
   header {
     display: flex;

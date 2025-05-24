@@ -1,13 +1,12 @@
+<script setup>
+defineProps({
+  imgsrc: String,
+  text: String
+})
+</script>
 <template>
-  <div class="legende">
-    <i>
-      <slot name="icon"></slot>
-    </i>
-    <p class="details">
-      <slot name="explanation"></slot>
-      <slot></slot>
-    </p>
-  </div>
+  <img :src="imgsrc" :alt="text" />
+  <span>{{ text }}</span>
 </template>
 
 <style scoped>

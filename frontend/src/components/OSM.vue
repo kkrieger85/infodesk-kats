@@ -23,8 +23,14 @@
 <script setup>
 import "leaflet/dist/leaflet.css"
 import MultiselectIconPicker from "./MultiselectIconPicker.vue"
-import { ref } from "vue"
+import { ref, watch, defineProps, defineEmits } from "vue"
 import { LMap, LTileLayer, LMarker, LIcon, LControl } from "@vue-leaflet/vue-leaflet"
+
+const props = defineProps({ customMarkers: Array })
+const emit = defineEmits(["customMarkers"])
+
+let localMarkers = ref(props.customMarkers || [])
+
 
 let showIconPicker = ref(false)
 let selectedIcon = ref(null)
@@ -35,11 +41,8 @@ let centerSammel = [49.272865, 7.034289]
 
 let iconExplosionUrl = "/src/assets/taktische_zeichen/Gefahren/Akute-Gefahr-durch-Explosion.svg"
 let iconSammelpunktUrl = "/src/assets/taktische_zeichen/Einrichtungen/Sammelstelle.svg"
-let iconOtherUrl = "/src/assets/taktische_zeichen/Einrichtungen/Andere.svg" // Beispiel für weiteres Icon
-
 let iconSize = [50, 50];;
 
-let customMarkers = ref([])
 let mapRef = ref(null)
 
 
@@ -48,22 +51,22 @@ function selectCustomIcon() {
 }
 
 function addCustomMarker(icon) {
-    // Einfache Auswahl per prompt (besser: eigenes Modal)
     showIconPicker.value = false
     if (!icon) return
-    selectedIcon.value = icon
 
     // Nutzer klickt auf die Karte, um Position zu wählen
     const mymap = mapRef.value.leafletObject
     const onClick = (e) => {
-        customMarkers.value.push({
+        localMarkers.value.push({
             latlng: [e.latlng.lat, e.latlng.lng],
-            iconUrl: icon.url
+            iconUrl: icon.url,
+            name: icon.name
         })
+        emit("customMarkers", localMarkers.value)
         mymap.off('click', onClick)
     }
     mymap.once('click', onClick)
-    //alert("Klicke auf die Karte, um den Marker zu platzieren.")
+
 }
 
 </script>
