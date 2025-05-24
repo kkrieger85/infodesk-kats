@@ -8,23 +8,15 @@
         <l-marker :lat-lng="centerSammel">
             <l-icon :icon-url="iconSammelpunktUrl" :icon-size="iconSize" />
         </l-marker>
-        <l-marker
-            v-for="(marker, idx) in customMarkers"
-            :key="idx"
-            :lat-lng="marker.latlng"
-        >
+        <l-marker v-for="(marker, idx) in customMarkers" :key="idx" :lat-lng="marker.latlng">
             <l-icon :icon-url="marker.iconUrl" :icon-size="iconSize" />
         </l-marker>
-        <l-control position="bottomleft" >
+        <l-control position="bottomleft">
             <button @click="selectCustomIcon">
-            Add custom marker</button>
+                Add custom marker</button>
         </l-control>
     </l-map>
-    <MultiselectIconPicker
-  v-if="showIconPicker"
-  @close="showIconPicker = false"
-  @select="addCustomMarker"
-/>
+    <MultiselectIconPicker v-if="showIconPicker" @close="showIconPicker = false" @select="addCustomMarker" />
 </template>
 
 
