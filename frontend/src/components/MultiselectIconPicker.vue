@@ -1,21 +1,24 @@
 <template>
-    <div>
-        <input v-model="search" type="text" placeholder="Icon suchen..." class="icon-search" />
-        <div class="icon-list">
-            <div v-for="icon in filteredIcons" :key="icon.url" class="icon-item" :class="{ selected: isSelected(icon) }"
-                @click="toggleSelect(icon)">
-                <img :src="icon.url" :alt="icon.name" class="icon-img" />
-                <span>{{ icon.name }}</span>
+    <div class="modal-backdrop" @click.self="emit('close')">
+        <div class="modal-content" style="position:relative;">
+            <button class="close-btn" @click="emit('close')" aria-label="Schließen">&times;</button>
+            <input v-model="search" type="text" placeholder="Icon suchen..." class="icon-search" />
+            <div class="icon-list">
+                <div v-for="icon in filteredIcons" :key="icon.url" class="icon-item" :class="{ selected: isSelected(icon) }"
+                    @click="toggleSelect(icon)">
+                    <img :src="icon.url" :alt="icon.name" class="icon-img" />
+                    <span class="item-name">{{ icon.name }}</span>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-const iconModules = import.meta.glob('/src/assets/taktische_zeichen/**/*.svg', { eager: true, as: 'url' })
+const iconModules = import.meta.glob('/src/assets/taktische_zeichen/**/*.svg', { eager: true, query: '?url', import: 'default' })
 const icons = ref(
     Object.entries(iconModules).map(([path, url]) => ({
-        name: path.split('/').pop().replace('.svg', ''),
+        name: path.split('/').pop().replace('.svg', '').replaceAll('-', ' '),
         url
     }))
 )
@@ -53,18 +56,45 @@ defineExpose({ selectedIcons })
 </script>
 
 <style scoped>
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px 20px 16px 20px;
+    min-width: 320px;
+    max-width: 90vw;
+    max-height: 80vh;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
 .icon-search {
     width: 100%;
-    margin-bottom: 8px;
-    padding: 4px;
+    margin-bottom: 12px;
+    padding: 6px 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
 }
 
 .icon-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    max-height: 200px;
+    gap: 12px;
+    max-height: 50vh;
     overflow-y: auto;
+    justify-content: flex-start;
 }
 
 .icon-item {
@@ -72,9 +102,11 @@ defineExpose({ selectedIcons })
     flex-direction: column;
     align-items: center;
     border: 2px solid transparent;
-    padding: 4px;
+    padding: 6px;
     cursor: pointer;
     width: 80px;
+    border-radius: 8px;
+    transition: border-color 0.2s, background 0.2s;
 }
 
 .icon-item.selected {
@@ -87,5 +119,25 @@ defineExpose({ selectedIcons })
     height: 40px;
     object-fit: contain;
     margin-bottom: 4px;
+}
+
+.item-name {
+    font-size: 0.675rem;
+    text-align: center;
+    color: #333;
+    max-width: 80px;
+    overflow: break-word;
+    text-overflow: ellipsis;
+}
+
+.close-btn {
+    position: absolute;
+    top: 18px;
+    right: 24px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #888;
 }
 </style>
