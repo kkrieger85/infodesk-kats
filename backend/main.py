@@ -14,6 +14,8 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="static"), name="static")
+app.mount("/assets", StaticFiles(directory="static/assets"), name="assets")
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -47,6 +49,7 @@ def create_location(location_data: AddLocationData, db: Session = Depends(get_db
 @app.get("/")
 async def read_index():
     return FileResponse("static/index.html")
+
 
 
 @app.get("/locations/", response_model=List[LocationData])

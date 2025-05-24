@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Map with Editable Locations</title>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+<link rel="stylesheet" href="http://localhost:80/assets/leaflet.css" integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H" crossorigin="anonymous">
+<link rel="stylesheet" href="http://localhost:80/assets/leaflet.draw.css" integrity="sha384-NZLkVuBRMEeB4VeZz27WwTRvlhec30biQ8Xx7zG7JJnkvEKRg5qi6BNbEXo9ydwv" crossorigin="anonymous">
   <style>
     #map { height: 90vh; }
     #exportBtn { margin: 10px; padding: 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer; }
@@ -16,11 +16,18 @@
 <div id="map"></div>
 <button id="exportBtn">Save locations</button>
 
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+
+
+ <!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="http://localhost:80/assets/leaflet.js" integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH" crossorigin="anonymous"></script>     
+     
+<script src="http://localhost:80/assets/leaflet.draw.js" integrity="sha384-JP5UPxIO2Tm2o79Fb0tGYMa44jkWar53aBoCbd8ah0+LcCDoohTIYr+zIXyfGIJN" crossorigin="anonymous"></script>
+
 <script>
   var map = L.map('map').setView([49.2765, 7.0455], 15);
-  L.tileLayer('localhost:8080/tile/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
+  L.tileLayer('http://localhost:8080/tile/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '&copy; OpenStreetMap contributors' }).addTo(map);
+
+  console.log("Map initialized");
 
   var drawnItems = new L.FeatureGroup();
   map.addLayer(drawnItems);
