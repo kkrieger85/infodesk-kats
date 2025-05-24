@@ -33,7 +33,7 @@ let zoom = ref(18)
 let center = ref([49.2725, 7.0336])
 let centerSammel = [49.272865, 7.034289]
 
-let iconExplosionUrl = "/src/assets/taktische_zeichen/Gefahren/Akute_Gefahr_durch_Explosion.svg"
+let iconExplosionUrl = "/src/assets/taktische_zeichen/Gefahren/Akute-Gefahr-durch-Explosion.svg"
 let iconSammelpunktUrl = "/src/assets/taktische_zeichen/Einrichtungen/Sammelstelle.svg"
 let iconOtherUrl = "/src/assets/taktische_zeichen/Einrichtungen/Andere.svg" // Beispiel für weiteres Icon
 

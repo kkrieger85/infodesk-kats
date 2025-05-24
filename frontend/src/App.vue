@@ -1,5 +1,4 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
 import Newsfeed from './components/Newsfeed.vue'
 import OSM from './components/OSM.vue'
 import Organization from './components/Organization.vue'
@@ -27,6 +26,7 @@ import Legende from './components/Legende.vue'
     </div>
 
   </aside>
+  
 </template>
 
 <style scoped>
