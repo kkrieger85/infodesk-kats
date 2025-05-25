@@ -29,12 +29,13 @@ open 'http://localhost:8080/' in your browser
 
 ### Frontend 
 - Devices: TV + Mobile
-- JS Framework like Vue, React, Svelte with PWA possibilities
+- Currently startet with VueJS
 
 - View:
   - Maps with POI
     - https://leafletjs.com/ to use.
     - https://leaflet.github.io/Leaflet.draw/docs/leaflet-draw-latest.html  Add Point, Circles & Polygons
+    - Since it seems there's no activity on leaflet.draw we might use https://geoman.io/docs/leaflet/
   - Legenda for Map
   - Newsfeed (order by prio), maybe autoscroll
   - TV Only: QR Code for Wifi
@@ -65,3 +66,13 @@ https://hub.docker.com/r/overv/openstreetmap-tile-server
   - should be able to handle 200 users
   - should redirect all requests to the own webserver
 - Powerstation + Solarpanel
+
+
+## Some more resources
+
+- https://warnung-der-bevoelkerung.de/wp-content/uploads/2025/04/2025_04_16-Bericht-Interviewstudie-KatL_Barrierefrei_ohneWarnungen_final.pdf 
+- https://warnung-der-bevoelkerung.de/katastrophenschutz-leuchttuerme-und-warnung/ 
+- Alternative to leaflet.draw => https://geoman.io/docs/leaflet/
+- Alternative to leaflet https://openlayers.org/ (looks more promise than leaflet)
+- Discussion on leaflet.draw maintenance state https://github.com/Leaflet/Leaflet.draw/issues/1041
+- https://tailwindflex.com/@prajwal/responsive-list-with-icons (Used for legenda)
