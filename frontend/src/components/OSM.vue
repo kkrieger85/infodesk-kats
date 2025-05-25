@@ -6,7 +6,8 @@
             <l-icon :icon-url="marker.iconUrl" :icon-size="iconSize" />
         </l-marker>
         <l-control position="bottomleft">
-            <button @click="selectCustomIcon" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+            <button @click="selectCustomIcon"
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
                 Zeichen</button>
         </l-control>
     </l-map>
@@ -30,7 +31,6 @@ let showIconPicker = ref(false)
 
 let zoom = ref(18)
 let center = ref([49.2725, 7.0336])
-let centerSammel = [49.272865, 7.034289]
 
 let iconSize = [50, 50];;
 
@@ -62,5 +62,4 @@ function addCustomMarker(icon) {
 
 </script>
 
-<style lang="css">
-</style>
+<style lang="css"></style>
