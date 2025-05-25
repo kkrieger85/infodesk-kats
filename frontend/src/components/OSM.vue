@@ -12,8 +12,8 @@
             <l-icon :icon-url="marker.iconUrl" :icon-size="iconSize" />
         </l-marker>
         <l-control position="bottomleft">
-            <button @click="selectCustomIcon">
-                Add custom marker</button>
+            <button @click="selectCustomIcon" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded">
+                Zeichen</button>
         </l-control>
     </l-map>
     <MultiselectIconPicker v-if="showIconPicker" @close="showIconPicker = false" @select="addCustomMarker" />
