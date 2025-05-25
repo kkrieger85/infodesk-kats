@@ -57,3 +57,24 @@ def get_locations(db: Session = Depends(get_db)) -> list[LocationData]:
     locations = db.query(Location).all()
     print(locations)
     return locations
+
+@app.get("/locations/{location_type}", response_model=LocationData)
+def get_location(location_type: str, db: Session = Depends(get_db)) -> LocationData:
+    location = db.query(Location).filter(Location.type.ilike(location_type)).order_by(Location.id.desc()).first()
+    if not location:
+        raise HTTPException(status_code=404, detail="Location not found")
+    return location
+
+
+
+@app.put("/locations/{location_id}")
+def update_location(location_id: int, location_data: AddLocationData, db: Session = Depends(get_db)):
+    location = db.query(Location).filter(Location.id == location_id).first()
+    if not location:
+        raise HTTPException(status_code=404, detail="Location not found")
+    
+    location.type = location_data.type
+    location.data = location_data.data
+    db.commit()
+    db.refresh(location)
+    return location
