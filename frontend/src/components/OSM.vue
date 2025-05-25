@@ -2,12 +2,6 @@
     <l-map ref="mapRef" v-model:zoom="zoom" v-model:center="center" :useGlobalLeaflet="false">
         <l-tile-layer url="http://localhost:8080/tile/{z}/{x}/{y}.png" layer-type="base"
             name="Stadia Maps Basemap"></l-tile-layer>
-        <l-marker :lat-lng="center">
-            <l-icon :icon-url="iconExplosionUrl" :icon-size="iconSize" />
-        </l-marker>
-        <l-marker :lat-lng="centerSammel">
-            <l-icon :icon-url="iconSammelpunktUrl" :icon-size="iconSize" />
-        </l-marker>
         <l-marker v-for="(marker, idx) in customMarkers" :key="idx" :lat-lng="marker.latlng">
             <l-icon :icon-url="marker.iconUrl" :icon-size="iconSize" />
         </l-marker>
@@ -33,14 +27,11 @@ let localMarkers = ref(props.customMarkers || [])
 
 
 let showIconPicker = ref(false)
-let selectedIcon = ref(null)
 
 let zoom = ref(18)
 let center = ref([49.2725, 7.0336])
 let centerSammel = [49.272865, 7.034289]
 
-let iconExplosionUrl = "/src/assets/taktische_zeichen/Gefahren/Akute-Gefahr-durch-Explosion.svg"
-let iconSammelpunktUrl = "/src/assets/taktische_zeichen/Einrichtungen/Sammelstelle.svg"
 let iconSize = [50, 50];;
 
 let mapRef = ref(null)
@@ -72,7 +63,4 @@ function addCustomMarker(icon) {
 </script>
 
 <style lang="css">
-#map {
-    height: 600px;
-}
 </style>

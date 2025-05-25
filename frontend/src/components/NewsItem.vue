@@ -1,89 +1,57 @@
+<script setup>
+import DocumentationIcon from './icons/IconDocumentation.vue'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+</script>
+
 <template>
-  <div class="item">
-    <i>
-      <slot name="icon"></slot>
-    </i>
-    <div class="details">
-      <h3>
+  <div class="news-item flex flex-col sm:flex-row gap-2 pb-6 border-b-2 border-gray-100">
+
+    <!-- Newsitem Date -->
+    <div class="px-2 py-2 bg-teal-500 text-white flex flex-col items-left justify-center">
+      <span class="text-sm flex gap-2">
+        <span class="flex gap-1 items-center">
+
+          <font-awesome-icon :icon="['fas', 'calendar-days']" />
+        </span>
+        <span class="flex gap-1 items-center">
+          <slot name="date"></slot>
+        </span>
+      </span>
+
+
+      <span class="text-2xl font-semibold flex gap-2">
+        <span class="flex gap-1 items-center">
+          <font-awesome-icon :icon="['far', 'clock']" />
+        </span>
+        <span class="flex gap-1 items-center">
+                  <slot name="datetime"></slot>
+        </span>
+      </span>
+    </div>
+    <!--  -->
+    <div class="flex flex-col justify-between">
+      <!-- Author & Category -->
+      <div class="flex md:gap-4 gap-2 text-sm text-gray-700 font-semibold">
+        <span class="flex gap-1 items-center">
+          <font-awesome-icon :icon="['far', 'user']" />
+          <slot name="author"></slot>
+        </span>
+        <span class="flex gap-1 items-center">
+          <font-awesome-icon :icon="['far', 'folder-closed']" />
+          <slot name="category"></slot>
+        </span>
+      </div>
+      <!-- Blog Titile -->
+      <h3 class="text-2xl md:text-3xl font-semibold text-teal-900 capitalize chelsea-market-regular">
         <slot name="heading"></slot>
       </h3>
-      <slot></slot>
+      <!-- Blog Description -->
+      <p class="text-md text-gray-500">
+        <slot></slot>
+      </p>
     </div>
+
   </div>
 </template>
 
-<style scoped>
-.item {
-  margin-top: 2rem;
-  display: flex;
-  position: relative;
-}
-
-.details {
-  flex: 1;
-  margin-left: 1rem;
-}
-
-i {
-  display: flex;
-  place-items: center;
-  place-content: center;
-  width: 32px;
-  height: 32px;
-
-  color: var(--color-text);
-}
-
-h3 {
-  font-size: 1.2rem;
-  font-weight: 500;
-  margin-bottom: 0.4rem;
-  color: var(--color-heading);
-}
-
-@media (max-width: 800px) {}
-@media (min-width: 1024px) {
-  .item {
-    margin-left: 25px;
-    margin-top: 0;
-    padding: 0.4rem 0 1rem 1.5rem;
-  }
-
-  i {
-    top: calc(50% - 25px);
-    left: -26px;
-    position: absolute;
-    border: 1px solid var(--color-border);
-    background: var(--color-background);
-    border-radius: 8px;
-    width: 50px;
-    height: 50px;
-  }
-
-  .item:before {
-    content: ' ';
-    border-left: 1px solid var(--color-border);
-    position: absolute;
-    left: 0;
-    bottom: calc(50% + 25px);
-    height: calc(50% - 25px);
-  }
-
-  .item:after {
-    content: ' ';
-    border-left: 1px solid var(--color-border);
-    position: absolute;
-    left: 0;
-    top: calc(50% + 25px);
-    height: calc(50% - 25px);
-  }
-
-  .item:first-of-type:before {
-    display: none;
-  }
-
-  .item:last-of-type:after {
-    display: none;
-  }
-}
-</style>
+<style scoped></style>

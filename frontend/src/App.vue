@@ -14,59 +14,27 @@ function updateCustomMarkers(markers) {
 
 <template>
   <main>
+    <div class="einsatz w-full text-center">
+                  <h2 class="text-3xl font-bold sm:text-4xl mb-4">
+Saar Hackathon #7 PASCALSCHACHT, DUDWEILER</h2>
+</div>
     <div class="map">
       <OSM :customMarkers="customMarkers" @customMarkers="updateCustomMarkers" />
     </div>
-    <div class="legende">
+    <div class="legende" v-if="customMarkers.length > 0">
       <Legende :customMarkers="customMarkers" />
     </div>
-
   </main>
   <aside>
-    <div class="org">
+    <div class="org flex items-center justify-center m-4">
       <Organization></Organization>
-
     </div>
-    <div class="newsfeed">
+    <div class="newsfeed m-4">
       <Newsfeed />
-
     </div>
-
   </aside>
-
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (max-width: 800px) {
-  .org {
-    display: none;
-  }
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>

@@ -10,12 +10,16 @@ import SupportIcon from './icons/IconSupport.vue'
 
 
 <template>
-  <h2>Newsfeed</h2>
+        <div class="w-full flex flex-col items-stretch justify-center">
+
+  <h2 class="text-center text-4xl font-bold ">Liveticker</h2>
+  <h3 class="text-center text-l pb-4">2025 <span class="font-bold">Mai</span></h3>
+
   <NewsItem>
-    <template #icon>
-      <DocumentationIcon />
-    </template>
-    <template #heading>11. Nov 12:00 </template>
+    <template #date>25.05.</template>
+    <template #datetime>13:37</template>
+    <template #author>Kevin</template>
+    <template #category>Hackathon</template>
 
     Vue’s
     <a href="https://vuejs.org/" target="_blank" rel="noopener">official documentation</a>
@@ -24,10 +28,10 @@ import SupportIcon from './icons/IconSupport.vue'
 
 
   <NewsItem>
-    <template #icon>
-      <DocumentationIcon />
-    </template>
-    <template #heading>11. Nov 11:30</template>
+    <template #date>25.05.</template>
+    <template #datetime>12:45</template>
+    <template #author>Kevin</template>
+    <template #category>Hackathon</template>
 
     This project is served and bundled with
     <a href="https://vite.dev/guide/features.html" target="_blank" rel="noopener">Vite</a>. The
@@ -46,10 +50,10 @@ import SupportIcon from './icons/IconSupport.vue'
   </NewsItem>
 
   <NewsItem>
-    <template #icon>
-      <DocumentationIcon />
-    </template>
-    <template #heading>11. Nov 10:45</template>
+    <template #date>25.05.</template>
+    <template #datetime>10:00</template>
+    <template #author>Kevin</template>
+    <template #category>Hackathon</template>
 
     Get official tools and libraries for your project:
     <a href="https://pinia.vuejs.org/" target="_blank" rel="noopener">Pinia</a>,
@@ -62,10 +66,10 @@ import SupportIcon from './icons/IconSupport.vue'
   </NewsItem>
 
   <NewsItem>
-    <template #icon>
-      <DocumentationIcon />
-    </template>
-    <template #heading>11. Nov 10:00 </template>
+    <template #date>25.05.</template>
+    <template #datetime>09:30</template>
+    <template #author>Kevin</template>
+    <template #category>Hackathon</template>
 
     Got stuck? Ask your question on
     <a href="https://chat.vuejs.org" target="_blank" rel="noopener">Vue Land</a>, our official
@@ -78,15 +82,5 @@ import SupportIcon from './icons/IconSupport.vue'
     <a href="https://twitter.com/vuejs" target="_blank" rel="noopener">@vuejs</a>
     twitter account for latest news in the Vue world.
   </NewsItem>
-
-  <NewsItem>
-    <template #icon>
-      <DocumentationIcon />
-    </template>
-    <template #heading>11. Nov 8:00</template>
-
-    As an independent project, Vue relies on community backing for its sustainability. You can help
-    us by
-    <a href="https://vuejs.org/sponsor/" target="_blank" rel="noopener">becoming a sponsor</a>.
-  </NewsItem>
+        </div>  
 </template>

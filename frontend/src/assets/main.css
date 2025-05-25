@@ -8,15 +8,8 @@
   font-weight: normal;
 }
 
-main {}
-
 .map {
   height: 400px;
-}
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
 }
 
 @media (min-width: 1024px) {
