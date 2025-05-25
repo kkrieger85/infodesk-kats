@@ -12,7 +12,6 @@
     </div>
 </template>
 <script setup>
-import DocumentationIcon from './icons/IconDocumentation.vue'
 import LegendeItem from './LegendeItem.vue'
 
 import { computed } from 'vue'
